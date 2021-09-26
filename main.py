@@ -1,11 +1,8 @@
-import struct
-from typing import List, Any
+import re
+from random import choice
 
 import requests
 from bs4 import BeautifulSoup
-from random import choice
-from array import *
-import re
 
 desktop_agents = [
     'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36',
@@ -246,7 +243,6 @@ schools[6].dptList[
 schools[7].name = "Школа естественных наук"
 schools[7].dptList = [dpt() for i in range(7)]
 
-
 schools[7].dptList[0].name = "Кафедра алгебры, геометрии и анализа"
 schools[7].dptList[
     0].url = "https://www.dvfu.ru/schools/school_of_natural_sciences/structures/department/department-of-algebra-geometry-and-analysis/teachers/"
@@ -270,7 +266,6 @@ schools[7].dptList[
     6].url = "https://www.dvfu.ru/schools/school_of_natural_sciences/structures/department/the-cluster-of-biological-departments/department-of-ecology/teachers-of-the-department/"
 
 
-
 # аргументы - адрес, индекс школы, индекс кафедры/департамента
 
 def alg1(addr, schInd, dptInd):  # просто перечисление в столбик
@@ -279,7 +274,7 @@ def alg1(addr, schInd, dptInd):  # просто перечисление в ст
     soup = BeautifulSoup(req.text, "html.parser")
     t = soup.find('div', class_="content col-md-9")  # область кода с фио
     # print(t.text)
-    result = re.findall(r'\w+\s\w+\s\w+\n', t.text)
+    result = re.findall(r"\w+\s\w+\s\w+\n", t.text)
     schools[schInd].dptList[dptInd].teachList = [tch() for i in range(len(result))]
     for i in range(len(result) - 1):
         ttch = tch()
@@ -493,7 +488,7 @@ def alg10(addr, schInd, dptInd):
         if len(col) == 3:  # если по другому, то это не строка о преподе
             ttch = tch()
             text1 = ''.join(map(str, col[1].contents))
-            text1 = re.split(r"[\t\n(<br>)]",text1)
+            text1 = re.split(r"[\t\n(<br>)]", text1)
 
             n = len(text1)
             k = 0
@@ -536,6 +531,7 @@ def alg11(addr, schInd, dptInd):  # таблица, фио - 2, должност
             schools[schInd].dptList[dptInd].teachList[ni] = ttch
             ni = ni + 1
 
+
 def alg12(addr, schInd, dptInd):
     req = requests.get(addr, headers=random_headers())
     soup = BeautifulSoup(req.text, "html.parser")
@@ -563,53 +559,53 @@ def alg12(addr, schInd, dptInd):
             ni = ni + 1
 
 
-alg1(schools[0].dptList[0].url,0,0)
-alg2(schools[0].dptList[1].url,0,1)
-alg3(schools[0].dptList[2].url,0,2)
-alg4(schools[0].dptList[3].url,0,3)
-alg5(schools[0].dptList[4].url,0,4)
-alg1(schools[0].dptList[5].url,0,5)
-alg4(schools[0].dptList[6].url,0,6)
-alg1(schools[0].dptList[7].url,0,7)
-alg1(schools[0].dptList[8].url,0,8)
-alg1(schools[0].dptList[9].url,0,9)
-alg4(schools[0].dptList[10].url,0,10)
-alg6(schools[1].dptList[0].url,1,0) #6
-alg6(schools[1].dptList[1].url,1,1) #6
-alg6(schools[1].dptList[2].url,1,2) #6
-alg6(schools[1].dptList[3].url,1,3) #6
-alg6(schools[1].dptList[4].url,1,4)
-alg6(schools[1].dptList[5].url,1,5)
-alg6(schools[1].dptList[6].url,1,6)
-alg6(schools[1].dptList[7].url,1,7)
-alg6(schools[1].dptList[8].url,1,8)
-alg6(schools[1].dptList[9].url,1,9)
-alg7(schools[2].dptList[0].url,2,0)
-alg8(schools[2].dptList[1].url,2,1)
-alg8(schools[2].dptList[2].url,2,2)
-alg8(schools[2].dptList[3].url,2,3)
-alg8(schools[2].dptList[4].url,2,4)
-alg8(schools[2].dptList[5].url,2,5)
-alg8(schools[2].dptList[6].url,2,6)
-alg8(schools[2].dptList[7].url,2,7)
-alg8(schools[2].dptList[8].url,2,8)
-alg8(schools[2].dptList[9].url,2,9)
-alg8(schools[3].dptList[0].url,3,0)
-alg8(schools[3].dptList[1].url,3,1)
-alg8(schools[3].dptList[2].url,3,2)
-alg8(schools[3].dptList[3].url,3,3)
-alg8(schools[3].dptList[4].url,3,4)
-alg8(schools[3].dptList[5].url,3,5)
-alg8(schools[3].dptList[6].url,3,6)
-alg8(schools[3].dptList[7].url,3,7)
-alg9(schools[4].dptList[0].url,4,0)
-alg9(schools[4].dptList[1].url,4,1)
-alg9(schools[4].dptList[2].url,4,2)
-alg9(schools[4].dptList[3].url,4,3)
-alg9(schools[4].dptList[4].url,4,4)
-alg9(schools[4].dptList[5].url,4,5)
-alg9(schools[4].dptList[6].url,4,6)
-alg9(schools[4].dptList[7].url,4,7)
+alg1(schools[0].dptList[0].url, 0, 0)
+alg2(schools[0].dptList[1].url, 0, 1)
+alg3(schools[0].dptList[2].url, 0, 2)
+alg4(schools[0].dptList[3].url, 0, 3)
+alg5(schools[0].dptList[4].url, 0, 4)
+alg1(schools[0].dptList[5].url, 0, 5)
+alg4(schools[0].dptList[6].url, 0, 6)
+alg1(schools[0].dptList[7].url, 0, 7)
+alg1(schools[0].dptList[8].url, 0, 8)
+alg1(schools[0].dptList[9].url, 0, 9)
+alg4(schools[0].dptList[10].url, 0, 10)
+alg6(schools[1].dptList[0].url, 1, 0)  # 6
+alg6(schools[1].dptList[1].url, 1, 1)  # 6
+alg6(schools[1].dptList[2].url, 1, 2)  # 6
+alg6(schools[1].dptList[3].url, 1, 3)  # 6
+alg6(schools[1].dptList[4].url, 1, 4)
+alg6(schools[1].dptList[5].url, 1, 5)
+alg6(schools[1].dptList[6].url, 1, 6)
+alg6(schools[1].dptList[7].url, 1, 7)
+alg6(schools[1].dptList[8].url, 1, 8)
+alg6(schools[1].dptList[9].url, 1, 9)
+alg7(schools[2].dptList[0].url, 2, 0)
+alg8(schools[2].dptList[1].url, 2, 1)
+alg8(schools[2].dptList[2].url, 2, 2)
+alg8(schools[2].dptList[3].url, 2, 3)
+alg8(schools[2].dptList[4].url, 2, 4)
+alg8(schools[2].dptList[5].url, 2, 5)
+alg8(schools[2].dptList[6].url, 2, 6)
+alg8(schools[2].dptList[7].url, 2, 7)
+alg8(schools[2].dptList[8].url, 2, 8)
+alg8(schools[2].dptList[9].url, 2, 9)
+alg8(schools[3].dptList[0].url, 3, 0)
+alg8(schools[3].dptList[1].url, 3, 1)
+alg8(schools[3].dptList[2].url, 3, 2)
+alg8(schools[3].dptList[3].url, 3, 3)
+alg8(schools[3].dptList[4].url, 3, 4)
+alg8(schools[3].dptList[5].url, 3, 5)
+alg8(schools[3].dptList[6].url, 3, 6)
+alg8(schools[3].dptList[7].url, 3, 7)
+alg9(schools[4].dptList[0].url, 4, 0)
+alg9(schools[4].dptList[1].url, 4, 1)
+alg9(schools[4].dptList[2].url, 4, 2)
+alg9(schools[4].dptList[3].url, 4, 3)
+alg9(schools[4].dptList[4].url, 4, 4)
+alg9(schools[4].dptList[5].url, 4, 5)
+alg9(schools[4].dptList[6].url, 4, 6)
+alg9(schools[4].dptList[7].url, 4, 7)
 alg10(schools[5].dptList[0].url, 5, 0)
 alg10(schools[5].dptList[1].url, 5, 1)
 alg10(schools[5].dptList[2].url, 5, 2)
@@ -618,28 +614,29 @@ alg10(schools[5].dptList[4].url, 5, 4)
 alg10(schools[5].dptList[5].url, 5, 5)
 alg10(schools[5].dptList[6].url, 5, 6)
 alg10(schools[5].dptList[7].url, 5, 7)
-alg11(schools[6].dptList[0].url,6,0)
-alg11(schools[6].dptList[1].url,6,1)
-alg11(schools[6].dptList[2].url,6,2)
-alg11(schools[6].dptList[2].url,6,3)
-alg11(schools[6].dptList[3].url,6,4)
-alg6(schools[7].dptList[0].url,7,0)
-alg4(schools[7].dptList[1].url,7,1)
-alg12(schools[7].dptList[2].url,7,2)
-alg12(schools[7].dptList[3].url,7,3)
-alg6(schools[7].dptList[4].url,7,4)
-alg12(schools[7].dptList[5].url,7,5)
-alg6(schools[7].dptList[6].url,7,6)
+alg11(schools[6].dptList[0].url, 6, 0)
+alg11(schools[6].dptList[1].url, 6, 1)
+alg11(schools[6].dptList[2].url, 6, 2)
+alg11(schools[6].dptList[2].url, 6, 3)
+alg11(schools[6].dptList[3].url, 6, 4)
+alg6(schools[7].dptList[0].url, 7, 0)
+alg4(schools[7].dptList[1].url, 7, 1)
+alg12(schools[7].dptList[2].url, 7, 2)
+alg12(schools[7].dptList[3].url, 7, 3)
+alg6(schools[7].dptList[4].url, 7, 4)
+alg12(schools[7].dptList[5].url, 7, 5)
+alg6(schools[7].dptList[6].url, 7, 6)
 
-f = open('out.html','w')
+f = open('out.html', 'w')
 ind = 0
 for setSchool in schools:
-    f.write('<h1>'+setSchool.name+'</h1><table border="1">')
+    f.write('<h1>' + setSchool.name + '</h1><table border="1">')
     for setDpt in setSchool.dptList:
-        f.write('<tr> <td><h3>'+setDpt.name+'</h3></td></tr> ')
+        f.write('<tr> <td><h3>' + setDpt.name + '</h3></td></tr> ')
         for setTch in setDpt.teachList:
             if not (setTch.name == "" or setTch.name == "-"):
-                f.write('<tr><td>'+setTch.name+'</td><td>'+setTch.dgre+'</td><td>'+ setTch.email+ '</td></tr>')
+                f.write(
+                    '<tr><td>' + setTch.name + '</td><td>' + setTch.dgre + '</td><td>' + setTch.email + '</td></tr>')
                 ind = ind + 1
     f.write('</table>')
-print('done', ind)
+print('done,', ind)
